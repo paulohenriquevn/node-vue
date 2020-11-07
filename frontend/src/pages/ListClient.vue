@@ -11,7 +11,7 @@
     </el-row>
     <el-row>
       <el-table
-        :data="tableData"
+        :data="data"
         border
         class="margin-bottom"
         style="width: 100%"
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -55,11 +56,25 @@ export default {
     };
   },
 
+  mounted() {
+    this.getClients();
+  },
+
+  computed: {
+    ...mapState({
+      data: (state) => state.clients.data,
+    }),
+  },
+
   methods: {
+    ...mapActions("clients", {
+      getClients: "getClients",
+    }),
+
     alterarPagina(numeroPagina) {
       alert(numeroPagina);
-    }
-  }
+    },
+  },
 };
 </script>
 
