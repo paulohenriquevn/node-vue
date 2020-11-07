@@ -1,9 +1,11 @@
-import express from 'express';
-
-const app = express();
+import "reflect-metadata";
+import Startup from './startup';
 
 const port = 3333;
 
-app.listen(port, () => {
+Startup.app.listen(port, () => {
 	console.log(`Aplicação iniciada na porta ${port}`);
 });
+
+process.once('SIGUSR2', () => Startup.closedataBaseConnection('restart', () => process.kill(process.pid, 'SIGUSR2')));
+process.once('SIGINT', () => Startup.closedataBaseConnection('connection crashed', () => process.exit(0)));

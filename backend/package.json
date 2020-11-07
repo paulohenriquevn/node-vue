@@ -5,10 +5,17 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --respawn --transpile-only src/server.ts"
+    "dev:server": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "migrate-mongo": "^8.1.4",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.13",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.29",
+    "uuidv4": "^6.2.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
