@@ -18,7 +18,10 @@ const ClientSchema: mongoose.Schema = new mongoose.Schema({
   toJSON: {
     transform: function (doc, ret) {
       ret.firstDate = ret.firstDate.toLocaleDateString('pt-br');
-      ret.totalValue = ret.totalValue.toString();
+      ret.totalValue = ret.totalValue.toString().toLocaleString("pt-br", {
+        style: "currency",
+        currency: "BRL",
+      });
     }
   }
 });

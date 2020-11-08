@@ -1,20 +1,11 @@
 import { GET_CLIENTS } from "./types";
+import api from "../../api";
 
 const actions = {
-  getClients({ commit }) {
-    const data = [
-      {
-        nome: "Paulo",
-        valorTotalInadimplencia: 0,
-        dataPrimeiraInadimplencia: "2016-05-03",
-      },
-      {
-        nome: "Paulo",
-        valorTotalInadimplencia: 0,
-        dataPrimeiraInadimplencia: "2016-05-03",
-      },
-    ];
-    commit(GET_CLIENTS, { total: 10, data });
+  async getClients({ commit }, { pesquisar, pagina, ordernacao }) {
+    const { data } = await api.get(`/client?name=${pesquisar}&page=${pagina}&sort=${ordernacao}`);
+    console.log(data);
+    commit(GET_CLIENTS, { pagina: data.currentPage, total: data.total, data: data.data });
   },
 };
 

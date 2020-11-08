@@ -2,11 +2,15 @@
   <el-row>
     <el-row>
       <el-input
-        placeholder="Digite a informação que deseja buscar e pressione enter"
-        v-model="formInline.user"
+        placeholder="Digite o nome do cliente que deseja buscar"
+        v-model="pesquisar"
         class="margin-bottom"
       >
-        <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="onPesquisar"
+        ></el-button>
       </el-input>
     </el-row>
     <el-row>
@@ -15,12 +19,12 @@
         border
         class="margin-bottom"
         style="width: 100%"
+        empty-text="Não há registros."
+        @sort-change="sortChanged"
       >
-        <el-table-column prop="nome" label="Nome do cliente"> </el-table-column>
-        <el-table-column prop="valorTotalInadimplencia" label="Valor">
-        </el-table-column>
-        <el-table-column prop="dataPrimeiraInadimplencia" label="Desde">
-        </el-table-column>
+        <el-table-column prop="name" label="Nome do cliente" sortable="custom"/>
+        <el-table-column prop="totalValue" label="Valor" sortable="custom"/>
+        <el-table-column prop="firstDate" label="Desde" sortable="custom"/> 
       </el-table>
       <el-pagination
         background
@@ -39,30 +43,25 @@ import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
-      formInline: {
-        user: "",
-        region: "",
-      },
-      total: 100,
+      pesquisar: "",
       pagina: 1,
-      tamanhoPagina: 10,
-      tableData: [
-        {
-          nome: "Paulo",
-          valorTotalInadimplencia: 0,
-          dataPrimeiraInadimplencia: "2016-05-03",
-        },
-      ],
+      ordernacao: "name",
+      tamanhoPagina: 20,
     };
   },
 
   mounted() {
-    this.getClients();
+    this.getClients({
+      pesquisar: this.pesquisar,
+      pagina: this.pagina,
+      ordernacao: this.ordernacao,
+    });
   },
 
   computed: {
     ...mapState({
       data: (state) => state.clients.data,
+      total: (state) => state.clients.total,
     }),
   },
 
@@ -72,7 +71,37 @@ export default {
     }),
 
     alterarPagina(numeroPagina) {
-      alert(numeroPagina);
+      this.pagina = numeroPagina;
+      this.getClients({
+        pesquisar: this.pesquisar,
+        pagina: this.pagina,
+        ordernacao: this.ordernacao,
+      });
+    },
+
+    onPesquisar() {
+      this.getClients({
+        pesquisar: this.pesquisar,
+        pagina: this.pagina,
+        ordernacao: this.ordernacao,
+      });
+    },
+
+    sortChanged({ prop, order }) {
+      if (order) {
+        const direcaoMap = {
+          ascending: "",
+          descending: "-",
+        };
+
+        const ordemDirecao = direcaoMap[order];
+        this.ordernacao = `${ordemDirecao}${prop}`;
+        this.getClients({
+          pesquisar: this.pesquisar,
+          pagina: this.pagina,
+          ordernacao: this.ordernacao,
+        });
+      }
     },
   },
 };
