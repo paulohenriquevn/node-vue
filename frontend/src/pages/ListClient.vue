@@ -1,38 +1,19 @@
 <template>
   <el-row>
     <el-row>
-      <el-input
-        placeholder="Digite o nome do cliente que deseja buscar"
-        v-model="pesquisar"
-        class="margin-bottom"
-      >
-        <el-button
-          slot="append"
-          icon="el-icon-search"
-          @click="onPesquisar"
-        ></el-button>
-      </el-input>
+      <app-input-search v-model="pesquisar" @onPesquisar="onPesquisar" />
     </el-row>
     <el-row>
-      <el-table
+      <app-table
         :data="data"
-        border
-        class="margin-bottom"
-        style="width: 100%"
         empty-text="Não há registros."
-        @sort-change="sortChanged"
-      >
-        <el-table-column prop="name" label="Nome do cliente" sortable="custom"/>
-        <el-table-column prop="totalValue" label="Valor" sortable="custom"/>
-        <el-table-column prop="firstDate" label="Desde" sortable="custom"/> 
-      </el-table>
-      <el-pagination
-        background
-        layout="prev, pager, next"
+        @ordernar="sortChanged"
+      />
+      <app-pagination
         :total="total"
-        :page-size="tamanhoPagina"
-        :current-page="pagina"
-        @current-change="alterarPagina"
+        :tamanhoPagina="tamanhoPagina"
+        :pagina="pagina"
+        @alterarPagina="alterarPagina"
       />
     </el-row>
   </el-row>
@@ -40,7 +21,16 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import AppTable from "../components/AppTable";
+import AppInputSearch from "../components/AppInputSearch";
+import AppPagination from "../components/AppPagination";
 export default {
+  components: {
+    AppTable,
+    AppInputSearch,
+    AppPagination,
+  },
+
   data() {
     return {
       pesquisar: "",
@@ -51,11 +41,7 @@ export default {
   },
 
   mounted() {
-    this.getClients({
-      pesquisar: this.pesquisar,
-      pagina: this.pagina,
-      ordernacao: this.ordernacao,
-    });
+    this.onPesquisar();
   },
 
   computed: {
@@ -70,21 +56,24 @@ export default {
       getClients: "getClients",
     }),
 
+    ...mapActions("loader", {
+      setLoader: "setLoader",
+      resetLoader: "resetLoader",
+    }),
+
     alterarPagina(numeroPagina) {
       this.pagina = numeroPagina;
-      this.getClients({
-        pesquisar: this.pesquisar,
-        pagina: this.pagina,
-        ordernacao: this.ordernacao,
-      });
+      this.onPesquisar();
     },
 
-    onPesquisar() {
-      this.getClients({
+    async onPesquisar() {
+      this.setLoader();
+      await this.getClients({
         pesquisar: this.pesquisar,
         pagina: this.pagina,
         ordernacao: this.ordernacao,
       });
+      this.resetLoader();
     },
 
     sortChanged({ prop, order }) {
@@ -96,11 +85,7 @@ export default {
 
         const ordemDirecao = direcaoMap[order];
         this.ordernacao = `${ordemDirecao}${prop}`;
-        this.getClients({
-          pesquisar: this.pesquisar,
-          pagina: this.pagina,
-          ordernacao: this.ordernacao,
-        });
+        this.onPesquisar();
       }
     },
   },
