@@ -1,13 +1,17 @@
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
 
+const db: any = {
+  name: process.env.DB_NAME ? process.env.DB_NAME : 'dbclient',
+  port: process.env.DB_PORT ? process.env.DB_PORT : 27017,
+  host: process.env.DB_HOST ? process.env.DB_HOST : 'localhost'
+};
+
 class DatabaseMongo {
   private DB_URI =
-  `mongodb://${
-    'localhost'
-  }:${
-    '27017'
-  }/${'dbclient'}`;
+    `mongodb://${db.host
+    }:${db.port
+    }/${db.name}`;
 
   private DB_CONNECTION: mongoose.Connection;
 
@@ -32,7 +36,7 @@ class DatabaseMongo {
     this.DB_CONNECTION.on('disconnected', () => console.log(`Mongoose está disconecato em ${uri}`));
   }
 
-  closeConnection(message: string, callback: ()=> unknown): void {
+  closeConnection(message: string, callback: () => unknown): void {
     this.DB_CONNECTION.close(() => {
       console.log(`Mongoose foi desconectado por: ${message}`);
       callback();

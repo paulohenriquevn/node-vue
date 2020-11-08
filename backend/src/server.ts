@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import Startup from './startup';
 
-const port = 3333;
+const port = parseInt(process.env.PORT) | 3333;
 
 Startup.app.listen(port, () => {
 	console.log(`Aplicação iniciada na porta ${port}`);
