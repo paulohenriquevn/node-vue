@@ -54,7 +54,7 @@ GET http://localhost:3333/client?name=Jose
 GET http://localhost:3333/client?sort=name
 ```
 
-## Paginate client by name
+## Paginate clients
 
 ```
 GET http://localhost:3333/client?page=1&limit=15
