@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 3333:3333
+    volumes:
+      - ./backend:/data
+    environment:
+      - DB_HOST=mongo
+    depends_on:
+      - mongo
+    links:
+      - mongo
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend:/data
+
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./data/db:/data/db"

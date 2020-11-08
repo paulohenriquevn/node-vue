@@ -1,0 +1,142 @@
+// The current database to use.
+use('dbclient');
+
+db.getCollection('clients').remove({});
+
+db.getCollection('clients').insertMany([
+    {
+      "name": "Emília Pequeno Boeira",
+      "totalValue": 100.50,
+      "firstDate": "2010-10-02T01:11:18.965Z"
+    },
+    {
+      "name": "Samira Salvado Albuquerque",
+      "totalValue": 200.50,
+      "firstDate": "2011-10-02T01:11:18.965Z"
+    },
+    {
+      "name": "Hafsa Fontinha",
+      "totalValue": 300.50,
+      "firstDate": "2012-09-18T01:11:18.965Z"
+    },
+    {
+      "name": "Mathias Girão",
+      "totalValue": 400.74,
+      "firstDate": "2013-09-01T01:11:18.965Z"
+    },
+    {
+      "name": "Eric Vaz Macieira",
+      "totalValue": 500.45,
+      "firstDate": "2013-09-02T01:11:18.965Z"
+    },
+    {
+      "name": "Lilian Almada Mata",
+      "totalValue": 600.50,
+      "firstDate": "2014-09-03T01:11:18.965Z"
+    },
+    {
+      "name": "Isaías Teles Rodovalho",
+      "totalValue": 13500.05,
+      "firstDate": "2015-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Iúri Valgueiro Jamandas",
+      "totalValue": 13500.05,
+      "firstDate": "2016-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Luisa Outeiro Monforte",
+      "totalValue": 13500.05,
+      "firstDate": "2017-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Flora Montenegro",
+      "totalValue": 13500.05,
+      "firstDate": "2018-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Pedro Sales Bonilha",
+      "totalValue": 13500.05,
+      "firstDate": "2018-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Marlene Monte Noleto",
+      "totalValue": 13500.05,
+      "firstDate": "2018-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Pietra Aguiar Cadavez",
+      "totalValue": 13500.05,
+      "firstDate": "2018-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Ângela Abasto Macieira",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Joel Pires Cirne",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-21T01:11:18.965Z"
+    },
+    {
+      "name": "Isabel Cardoso Barreno",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-18T01:11:18.965Z"
+    },
+    {
+      "name": "Karine Guerra Soverosa",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Wilson Batata Gago",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-11T01:11:18.965Z"
+    },
+    {
+      "name": "Melany Gusmão Barros",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Djayson Urias",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-10T01:11:18.965Z"
+    },
+    {
+      "name": "Giovanni Breia Almeida",
+      "totalValue": 13500.05,
+      "firstDate": "2020-09-08T01:11:18.965Z"
+    },
+    {
+      "name": "Laurindo Vidigal Mexia",
+      "totalValue": 13500.05,
+      "firstDate": "2007-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Luisa Amaral Quintanilha",
+      "totalValue": 13500.05,
+      "firstDate": "2008-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Samanta Eanes",
+      "totalValue": 13500.05,
+      "firstDate": "2009-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Julia Esparteiro",
+      "totalValue": 13500.05,
+      "firstDate": "2009-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Cláudia Canadas Hilário",
+      "totalValue": 13500.05,
+      "firstDate": "2009-09-04T01:11:18.965Z"
+    },
+    {
+      "name": "Natália Picanço Caetano",
+      "totalValue": 13500.05,
+      "firstDate": "2009-09-04T01:11:18.965Z"
+    }
+  ])

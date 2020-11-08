@@ -8,8 +8,8 @@ const routers = [
     path: "/",
     name: "listaDeClientes",
     component: () => import("@/pages/ListClient"),
-    meta: {},
-  },
+    meta: {}
+  }
 ];
 
 const routersLayout = [
@@ -18,16 +18,16 @@ const routersLayout = [
     name: "home",
     component: () => import("@/layout/Layout"),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
-    children: [...routers],
-  },
+    children: [...routers]
+  }
 ];
 
 const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
-  routes: routersLayout,
+  routes: routersLayout
 });
 
 export default router;

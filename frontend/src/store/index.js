@@ -7,10 +7,10 @@ Vue.use(Vuex);
 
 const modules = {
   loader,
-  clients,
+  clients
 };
 
 export default new Vuex.Store({
   modules,
-  strict: process.env.NODE_ENV !== "production",
+  strict: process.env.NODE_ENV !== "production"
 });

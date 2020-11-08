@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-loading.fullscreen.lock="loader.status">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 <script>
@@ -10,8 +10,8 @@ export default {
   name: "App",
   computed: {
     ...mapState({
-      loader: state => state.loader
-    })
-  }
+      loader: (state) => state.loader,
+    }),
+  },
 };
 </script>
