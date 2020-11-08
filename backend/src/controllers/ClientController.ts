@@ -1,17 +1,14 @@
 import { Request, Response } from "express";
-import ClientRepository, { FilterClient } from "../repositories/ClientRepository";
+import ClientRepository from "../repositories/ClientRepository";
+import { FilterClient } from "../dto/FilterClient";
 
 const clientRepository = new ClientRepository();
 
 class ClientController {
   async get(request: Request, response: Response) {
     const { name, sort, page = 1, limit = 15 } = request.query;
-    const filter = new FilterClient();
-    filter.name = name as string;
-    filter.sort = sort as string;
-    filter.page = page as number;
-    filter.limit = limit as number;
-    const values = await clientRepository.findBy(filter);
+    const filter = new FilterClient(name as string, page as number, limit as number, sort as string,);
+    const values = await clientRepository.find(filter);
     return response.json(values);
   }
 }

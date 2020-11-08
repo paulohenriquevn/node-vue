@@ -1,20 +1,7 @@
 import mongoose from 'mongoose';
 import ClientSchema, { Client } from "../models/client";
-
-export class FilterClient {
-  name: string;
-  page: number;
-  limit: number;
-  sort: string;
-}
-
-export class ResultClient {
-  data: Client[];
-  totalPages: number;
-  currentPage: number;
-  total: number;
-}
-
+import { FilterClient } from '../dto/FilterClient';
+import { ResultClient } from '../dto/ResultClient';
 class ClientRepository {
   private model: mongoose.Model<Client>;
 
@@ -22,7 +9,7 @@ class ClientRepository {
     this.model = ClientSchema;
   }
 
-  async findBy(filter: FilterClient | null): Promise<ResultClient> {
+  async find(filter: FilterClient | null): Promise<ResultClient> {
     const { name, page, limit, sort = 'firstDate' } = filter;
 
     let query: any = {};
@@ -36,15 +23,10 @@ class ClientRepository {
       .skip((page - 1) * limit)
       .sort(sort)
       .then((data: Client[]) => {
-        const items = data.map(function (p) {
-          return p.toJSON();
+        const items = data.map((client) => {
+          return client.toJSON();
         });
-        const result = new ResultClient();
-        result.data = items;
-        result.currentPage = page;
-        result.totalPages = Math.ceil(count / limit);
-        result.total = count;
-        return result;
+        return new ResultClient(items, Math.ceil(count / limit), page, count);
       })
       .catch((error: Error) => {
         throw error;
