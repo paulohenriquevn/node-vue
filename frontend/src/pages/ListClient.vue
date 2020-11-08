@@ -10,7 +10,7 @@
         @ordernar="sortChanged"
       />
       <app-pagination
-        :total="27"
+        :total="total"
         :tamanhoPagina="tamanhoPagina"
         :pagina="pagina"
         @alterarPagina="alterarPagina"
@@ -36,7 +36,7 @@ export default {
       pesquisar: "",
       pagina: 1,
       ordernacao: "name",
-      tamanhoPagina: 10,
+      tamanhoPagina: 15,
     };
   },
 
