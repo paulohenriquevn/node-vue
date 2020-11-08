@@ -1,45 +1,26 @@
-// import mongoose from 'mongoose';
-// import { uuid } from "uuidv4";
+import mongoose from 'mongoose';
+export interface Client extends mongoose.Document {
+  toJSON();
+  _id: string;
+  name: unknown;
+  totalValue: number;
+  firstDate: Date;
+  totalPages: number;
+  currentPage: number;
+}
 
-// interface IClient {
-//   name: string;
-//   totalValue: number;
-//   firstDate: Date;
-// }
+const ClientSchema: mongoose.Schema = new mongoose.Schema({
+  _id: { type: mongoose.Types.ObjectId, auto: true },
+  name: { type: String, required: true },
+  totalValue: { type: mongoose.Types.Decimal128, required: true },
+  firstDate: { type: Date, required: true },
+}, {
+  toJSON: {
+    transform: function (doc, ret) {
+      ret.firstDate = ret.firstDate.toLocaleDateString('pt-br');
+      ret.totalValue = ret.totalValue.toString();
+    }
+  }
+});
 
-// @Entity({ schema: 'clients', name: 'client' })
-// class Client {
-//   @PrimaryGeneratedColumn()
-//   id: string;
-
-//   @Column()
-//   name!: string;
-
-//   @Column()
-//   totalValue!: number;
-
-//   @Column()
-//   firstDate!: Date;
-
-//   // constructor({ name, totalValue, firstDate }: Omit<IClient, 'id'>) {
-//   //   this.id = uuid();
-//   //   this.name = name;
-//   //   this.totalValue = totalValue;
-//   //   this.firstDate = firstDate;
-//   // }
-// }
-
-// export default Client;
-
-
-// export interface DadosExternos extends mongoose.Document {
-//   _id: string;
-//   dados: unknown;
-// }
-
-// const DadosExternosSchema: mongoose.Schema = new mongoose.Schema({
-//   _id: { type: mongoose.Types.ObjectId, auto: true },
-//   dados: { type: Object, required: true },
-// });
-
-// export default mongoose.model<DadosExternos>('DadosExternos', DadosExternosSchema);
+export default mongoose.model<Client>('client', ClientSchema);
