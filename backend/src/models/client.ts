@@ -5,8 +5,21 @@ export interface Client extends mongoose.Document {
   name: unknown;
   totalValue: number;
   firstDate: Date;
-  totalPages: number;
-  currentPage: number;
+}
+
+const formatarData = (valor: any): any => {
+  return valor.toLocaleString('pt-BR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).replace(/\//g, '/');
+}
+
+const formatarMonetario = (valor: any): any => {
+  return parseFloat(valor.toString()).toLocaleString("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
 }
 
 const ClientSchema: mongoose.Schema = new mongoose.Schema({
@@ -17,13 +30,12 @@ const ClientSchema: mongoose.Schema = new mongoose.Schema({
 }, {
   toJSON: {
     transform: function (doc, ret) {
-      ret.firstDate = ret.firstDate.toLocaleDateString('pt-br');
-      ret.totalValue = ret.totalValue.toString().toLocaleString("pt-br", {
-        style: "currency",
-        currency: "BRL",
-      });
+      ret.firstDate = formatarData(ret.firstDate)
+      ret.totalValue = formatarMonetario(ret.totalValue);
     }
   }
 });
 
 export default mongoose.model<Client>('client', ClientSchema);
+
+

@@ -24,13 +24,13 @@ class ClientRepository {
   }
 
   async findBy(filter: FilterClient | null): Promise<ResultClient> {
-    const { name, page = 1, limit = 20, sort = 'firstDate' } = filter;
+    const { name, page, limit, sort = 'firstDate' } = filter;
 
     const count = await ClientSchema.countDocuments();
 
     let query: any = {};
     if (name) {
-      query.name = { $regex: '.*' + name + '.*', $options: 'i' }
+      query.name = { $regex: `.*${name}.*`, $options: 'i' }
     }
 
     return this.model.find(query).limit(limit * 1)
@@ -38,7 +38,7 @@ class ClientRepository {
       .sort(sort)
       .then((data: Client[]) => {
         const items = data.map(function (p) {
-          return p.toJSON()
+          return p.toJSON();
         });
         const result = new ResultClient();
         result.data = items;

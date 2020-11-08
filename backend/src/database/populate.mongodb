@@ -1,5 +1,5 @@
 // The current database to use.
-use('dbclient');
+use('financeiro');
 
 db.getCollection('clients').remove({});
 

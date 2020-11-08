@@ -5,7 +5,7 @@ const clientRepository = new ClientRepository();
 
 class ClientController {
   async get(request: Request, response: Response) {
-    const { name, sort, page = 1, limit = 10 } = request.query;
+    const { name, sort, page = 1, limit = 20 } = request.query;
     const filter = new FilterClient();
     filter.name = name as string;
     filter.sort = sort as string;
