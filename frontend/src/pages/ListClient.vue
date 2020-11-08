@@ -41,7 +41,7 @@ export default {
   },
 
   mounted() {
-    this.onPesquisar();
+    this.fetchClientes();
   },
 
   computed: {
@@ -63,10 +63,15 @@ export default {
 
     alterarPagina(numeroPagina) {
       this.pagina = numeroPagina;
-      this.onPesquisar();
+      this.fetchClientes();
     },
 
-    async onPesquisar() {
+    onPesquisar() {
+      this.pagina = 1;
+      this.fetchClientes();
+    },
+
+    async fetchClientes() {
       this.setLoader();
       await this.getClients({
         pesquisar: this.pesquisar,
@@ -85,7 +90,7 @@ export default {
 
         const ordemDirecao = direcaoMap[order];
         this.ordernacao = `${ordemDirecao}${prop}`;
-        this.onPesquisar();
+        this.fetchClientes();
       }
     },
   },

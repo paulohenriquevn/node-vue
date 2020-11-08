@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import ClientSchema, { Client } from "../models/client";
 
-
 export class FilterClient {
   name: string;
   page: number;
@@ -26,12 +25,12 @@ class ClientRepository {
   async findBy(filter: FilterClient | null): Promise<ResultClient> {
     const { name, page, limit, sort = 'firstDate' } = filter;
 
-    const count = await ClientSchema.countDocuments();
-
     let query: any = {};
     if (name) {
       query.name = { $regex: `.*${name}.*`, $options: 'i' }
     }
+
+    const count = await ClientSchema.countDocuments(query);
 
     return this.model.find(query).limit(limit * 1)
       .skip((page - 1) * limit)
