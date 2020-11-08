@@ -33,3 +33,29 @@ http://localhost:8080
 
 ```
 /backend/src/database/populate.mongodb
+```
+# APIs
+
+## List all clients
+
+```
+GET http://localhost:3333/client
+```
+
+## Filter clients by name
+
+```
+GET http://localhost:3333/client?name=Jose
+```
+
+## Sort client by name
+
+```
+GET http://localhost:3333/client?sort=name
+```
+
+## Paginate client by name
+
+```
+GET http://localhost:3333/client?page=1&limit=15
+```
