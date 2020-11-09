@@ -1,6 +1,4 @@
-# Application Node and VueJs
-
-[DEMO](http://159.65.216.107:8081/)
+# Application Node and VueJs [DEMO](http://159.65.216.107:8081/)
 
 # Run apllication
 
